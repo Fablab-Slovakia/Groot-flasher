@@ -1,0 +1,934 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 9em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD21\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">19. 7. 2022</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">5:13:26</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc" class="file"><acronym title="C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc">C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">194</td></tr>
+</table>
+</td>
+</table><a name="IDARKXWGBMYMRCMNAZCJN2DCCJVKVZVJNC1CIBSYBXSFMVKOJSOF4F"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5FQVMVDQDDYIKJPB5B0O5MUPOC0PFPJK4GM20PM1TCOMR0D4ZNUL">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">44</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDUFWZCHZDC03FPPFRBPV4CQ1B5PGC4FGVYZAEJEFFV4OXJMQ2TM1H">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">16</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDL4MW0RM0K1R0NC1P5O2SCA2LBPK1FPJNVRRNB5OXH44MLNDXC0LC">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">8</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDWDDV0M0LAMC3JVC5BVWTFEB4ZMQS0EBPYANY3GGH1GN4TOXDP3G">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDZRF3WVC4H4KSIU2BY2WYXGN53H31K5FVFPJ0YGXSIGOW4UQ0T3M">Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">99</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAPY1GTNK3DEIIK1U3D2V2CQUWP3BC55QYIM220LA5AX2NNQNKRRN">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5GIXNEI2B1QCOW31EZZV0UCXOBNETF3NDX3OGPO4AB1R12GCCV0F">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDXAHDWWMFGSSNGYGJXFGYRTZWAE05VJDC35TE2KPAGZBKMHMHJVVD">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDWRX4ZLZ2AKKPL03YVY1V1ZY0TLVBINKPPWGG30PPHIXQ03ROGZG">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDWZWDVVZKTVSOQTSQVGHTT444EEHDNAKYRSLDHP5XJOUYZDRGFM">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">18</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDIJI2CD5UIRSGD0ASZESMJZRKB1NI1UMQABC45ISJ5Q4LYE2R52J">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDJ3Q54QYU01ONGFE1U4ESITXH1PIJWJF4ING20GP0UY50L0HS5XIF">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">8</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDOWA5AQYL0W3BCB03MA1JTFG2KCDTRKO0OVQPFXBDMREATKUKW2GN">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">194</td>
+</tr>
+</table><br><a name="ID5FQVMVDQDDYIKJPB5B0O5MUPOC0PFPJK4GM20PM1TCOMR0D4ZNUL"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3588.248mil|Location2.X=3595.914mil|Location1.Y=2871.167mil|Location2.Y=2878.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3588.248mil|Location2.X=3595.914mil|Location1.Y=2871.167mil|Location2.Y=2878.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Arc (3555mil,2860mil) on Bottom Layer And Pad Free-3(3540mil,2900mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3603.686mil|Location2.X=3611.353mil|Location1.Y=2996.007mil|Location2.Y=3003.674mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3603.686mil|Location2.X=3611.353mil|Location1.Y=2996.007mil|Location2.Y=3003.674mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Arc (3605mil,2980mil) on Bottom Layer And Pad Free-RX(3540mil,3000mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.686mil|Location2.X=3666.353mil|Location1.Y=3213.604mil|Location2.Y=3221.27mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.686mil|Location2.X=3666.353mil|Location1.Y=3213.604mil|Location2.Y=3221.27mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Arc (3608.579mil,3300mil) on Bottom Layer And Pad Free-2(3595mil,3200mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3604.745mil|Location2.X=3612.412mil|Location1.Y=3196.167mil|Location2.Y=3203.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3604.745mil|Location2.X=3612.412mil|Location1.Y=3196.167mil|Location2.Y=3203.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Arc (3608.579mil,3300mil) on Bottom Layer And Pad Free-2(3595mil,3200mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3616.167mil|Location2.X=3623.833mil|Location1.Y=3296.167mil|Location2.Y=3303.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3616.167mil|Location2.X=3623.833mil|Location1.Y=3296.167mil|Location2.Y=3303.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Arc (3620mil,3305mil) on Bottom Layer And Pad Free-2(3605mil,3300mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3621.167mil|Location2.X=3628.833mil|Location1.Y=3321.167mil|Location2.Y=3328.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3621.167mil|Location2.X=3628.833mil|Location1.Y=3321.167mil|Location2.Y=3328.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Arc (3685mil,3330mil) on Bottom Layer And Pad Free-2(3605mil,3300mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3612.956mil|Location2.X=3624.206mil|Location1.Y=2597.79mil|Location2.Y=2609.04mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3612.956mil|Location2.X=3624.206mil|Location1.Y=2597.79mil|Location2.Y=2609.04mil|Absolute=True">Clearance Constraint: (9.869mil &lt; 10mil) Between Arc (3720.426mil,2700mil) on Bottom Layer And Pad Free-RX(3590mil,2532.5mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3947.814mil|Location2.X=3959.064mil|Location1.Y=3373.875mil|Location2.Y=3385.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3947.814mil|Location2.X=3959.064mil|Location1.Y=3373.875mil|Location2.Y=3385.125mil|Absolute=True">Clearance Constraint: (6mil &lt; 10mil) Between Arc (3957.011mil,3345.47mil) on Bottom Layer And Track (3870mil,3390mil)(4060mil,3390mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4049.543mil|Location2.X=4061.128mil|Location1.Y=3372.93mil|Location2.Y=3384.18mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4049.543mil|Location2.X=4061.128mil|Location1.Y=3372.93mil|Location2.Y=3384.18mil|Absolute=True">Clearance Constraint: (9.847mil &lt; 10mil) Between Arc (4041mil,3345mil) on Bottom Layer And Arc (4060mil,3300mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4045.48mil|Location2.X=4056.73mil|Location1.Y=3348.196mil|Location2.Y=3359.446mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4045.48mil|Location2.X=4056.73mil|Location1.Y=3348.196mil|Location2.Y=3359.446mil|Absolute=True">Clearance Constraint: (6.173mil &lt; 10mil) Between Arc (4041mil,3345mil) on Bottom Layer And Pad IC1-14(4035mil,3321.772mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4035.375mil|Location2.X=4046.625mil|Location1.Y=3373.875mil|Location2.Y=3385.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4035.375mil|Location2.X=4046.625mil|Location1.Y=3373.875mil|Location2.Y=3385.125mil|Absolute=True">Clearance Constraint: (6mil &lt; 10mil) Between Arc (4041mil,3345mil) on Bottom Layer And Track (3870mil,3390mil)(4060mil,3390mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4146.167mil|Location2.X=4153.833mil|Location1.Y=3296.167mil|Location2.Y=3303.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4146.167mil|Location2.X=4153.833mil|Location1.Y=3296.167mil|Location2.Y=3303.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Arc (4060mil,3300mil) on Bottom Layer And Pad Free-2(4150mil,3300mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4072.72mil|Location2.X=4083.97mil|Location1.Y=3268.52mil|Location2.Y=3279.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4072.72mil|Location2.X=4083.97mil|Location1.Y=3268.52mil|Location2.Y=3279.77mil|Absolute=True">Clearance Constraint: (8.445mil &lt; 10mil) Between Arc (4155mil,3290mil) on Bottom Layer And Pad Free-2(4150mil,3300mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4088.917mil|Location2.X=4096.584mil|Location1.Y=3221.167mil|Location2.Y=3228.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4088.917mil|Location2.X=4096.584mil|Location1.Y=3221.167mil|Location2.Y=3228.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Arc (4155mil,3290mil) on Bottom Layer And Pad Free-2(4155mil,3200mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.536mil|Location2.X=4058.786mil|Location1.Y=3285.654mil|Location2.Y=3296.904mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.536mil|Location2.X=4058.786mil|Location1.Y=3285.654mil|Location2.Y=3296.904mil|Absolute=True">Clearance Constraint: (8.815mil &lt; 10mil) Between Arc (4155mil,3290mil) on Bottom Layer And Pad IC1-14(4035mil,3321.772mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4218.686mil|Location2.X=4226.353mil|Location1.Y=3081.192mil|Location2.Y=3088.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4218.686mil|Location2.X=4226.353mil|Location1.Y=3081.192mil|Location2.Y=3088.858mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Arc (4169.882mil,3000mil) on Bottom Layer And Pad Free-2(4155mil,3100mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3671.452mil|Location2.X=3682.702mil|Location1.Y=3000.871mil|Location2.Y=3012.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3671.452mil|Location2.X=3682.702mil|Location1.Y=3000.871mil|Location2.Y=3012.121mil|Absolute=True">Clearance Constraint: (9.155mil &lt; 10mil) Between Pad DS2-1(3713.151mil,2975mil) on Multi-Layer And Track (3660mil,2735.945mil)(3660mil,3146.317mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3671.452mil|Location2.X=3682.702mil|Location1.Y=2869.375mil|Location2.Y=2880.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3671.452mil|Location2.X=3682.702mil|Location1.Y=2869.375mil|Location2.Y=2880.625mil|Absolute=True">Clearance Constraint: (9.155mil &lt; 10mil) Between Pad DS2-2(3713.151mil,2875mil) on Multi-Layer And Track (3660mil,2735.945mil)(3660mil,3146.317mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3591.167mil|Location2.X=3598.833mil|Location1.Y=3196.167mil|Location2.Y=3203.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3591.167mil|Location2.X=3598.833mil|Location1.Y=3196.167mil|Location2.Y=3203.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Pad Free-2(3595mil,3200mil) on Bottom Layer And Track (3595mil,3200mil)(3608.579mil,3200mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3659.016mil|Location2.X=3670.266mil|Location1.Y=3167.254mil|Location2.Y=3178.504mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3659.016mil|Location2.X=3670.266mil|Location1.Y=3167.254mil|Location2.Y=3178.504mil|Absolute=True">Clearance Constraint: (6mil &lt; 10mil) Between Pad Free-2(3595mil,3200mil) on Bottom Layer And Track (3660mil,3146.317mil)(3709.683mil,3196mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3659.224mil|Location2.X=3670.474mil|Location1.Y=3219.327mil|Location2.Y=3231.221mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3659.224mil|Location2.X=3670.474mil|Location1.Y=3219.327mil|Location2.Y=3231.221mil|Absolute=True">Clearance Constraint: (4.809mil &lt; 10mil) Between Pad Free-2(3595mil,3200mil) on Bottom Layer And Track (3679.289mil,3229.289mil)(3708.999mil,3258.999mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3621.167mil|Location2.X=3628.833mil|Location1.Y=3301.167mil|Location2.Y=3308.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3621.167mil|Location2.X=3628.833mil|Location1.Y=3301.167mil|Location2.Y=3308.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Pad Free-2(3605mil,3300mil) on Bottom Layer And Track (3625mil,3305mil)(3625mil,3330mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4071.865mil|Location2.X=4083.115mil|Location1.Y=3319.375mil|Location2.Y=3330.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4071.865mil|Location2.X=4083.115mil|Location1.Y=3319.375mil|Location2.Y=3330.625mil|Absolute=True">Clearance Constraint: (9.98mil &lt; 10mil) Between Pad Free-2(4150mil,3300mil) on Bottom Layer And Track (4065mil,3290mil)(4065mil,3345mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4151.167mil|Location2.X=4158.833mil|Location1.Y=3096.167mil|Location2.Y=3103.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4151.167mil|Location2.X=4158.833mil|Location1.Y=3096.167mil|Location2.Y=3103.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Pad Free-2(4155mil,3100mil) on Bottom Layer And Track (4155mil,3100mil)(4169.882mil,3100mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3536.167mil|Location2.X=3543.833mil|Location1.Y=2896.167mil|Location2.Y=2903.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3536.167mil|Location2.X=3543.833mil|Location1.Y=2896.167mil|Location2.Y=2903.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Pad Free-3(3540mil,2900mil) on Bottom Layer And Track (3540mil,2900mil)(3555mil,2900mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3589.375mil|Location2.X=3600.625mil|Location1.Y=2866.875mil|Location2.Y=2878.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3589.375mil|Location2.X=3600.625mil|Location1.Y=2866.875mil|Location2.Y=2878.125mil|Absolute=True">Clearance Constraint: (5mil &lt; 10mil) Between Pad Free-3(3540mil,2900mil) on Bottom Layer And Track (3595mil,2700mil)(3595mil,2860mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3605.635mil|Location2.X=3616.885mil|Location1.Y=2869.375mil|Location2.Y=2880.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3605.635mil|Location2.X=3616.885mil|Location1.Y=2869.375mil|Location2.Y=2880.625mil|Absolute=True">Clearance Constraint: (7.48mil &lt; 10mil) Between Pad Free-3(3540mil,2900mil) on Bottom Layer And Track (3625mil,2705mil)(3625mil,2980mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3536.167mil|Location2.X=3543.833mil|Location1.Y=2996.167mil|Location2.Y=3003.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3536.167mil|Location2.X=3543.833mil|Location1.Y=2996.167mil|Location2.Y=3003.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Pad Free-RX(3540mil,3000mil) on Bottom Layer And Track (3540mil,3000mil)(3605mil,3000mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3605.635mil|Location2.X=3616.885mil|Location1.Y=2969.375mil|Location2.Y=2980.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3605.635mil|Location2.X=3616.885mil|Location1.Y=2969.375mil|Location2.Y=2980.625mil|Absolute=True">Clearance Constraint: (7.48mil &lt; 10mil) Between Pad Free-RX(3540mil,3000mil) on Bottom Layer And Track (3625mil,2705mil)(3625mil,2980mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3586.167mil|Location2.X=3593.833mil|Location1.Y=2528.667mil|Location2.Y=2536.333mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3586.167mil|Location2.X=3593.833mil|Location1.Y=2528.667mil|Location2.Y=2536.333mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Pad Free-RX(3590mil,2532.5mil) on Bottom Layer And Track (3590mil,2532.5mil)(3597.5mil,2540mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3593.667mil|Location2.X=3601.333mil|Location1.Y=2536.167mil|Location2.Y=2543.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3593.667mil|Location2.X=3601.333mil|Location1.Y=2536.167mil|Location2.Y=2543.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 10mil) Between Pad Free-RX(3590mil,2532.5mil) on Bottom Layer And Track (3597.5mil,2540mil)(3740mil,2540mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3965.595mil|Location2.X=3976.845mil|Location1.Y=3351.021mil|Location2.Y=3362.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3965.595mil|Location2.X=3976.845mil|Location1.Y=3351.021mil|Location2.Y=3362.271mil|Absolute=True">Clearance Constraint: (9.709mil &lt; 10mil) Between Pad IC1-13(3985mil,3321.772mil) on Bottom Layer And Track (3953.439mil,3369mil)(4041mil,3369mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4015.595mil|Location2.X=4026.845mil|Location1.Y=3351.021mil|Location2.Y=3362.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4015.595mil|Location2.X=4026.845mil|Location1.Y=3351.021mil|Location2.Y=3362.271mil|Absolute=True">Clearance Constraint: (9.709mil &lt; 10mil) Between Pad IC1-14(4035mil,3321.772mil) on Bottom Layer And Track (3953.439mil,3369mil)(4041mil,3369mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.515mil|Location2.X=4058.765mil|Location1.Y=3286.127mil|Location2.Y=3297.377mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.515mil|Location2.X=4058.765mil|Location1.Y=3286.127mil|Location2.Y=3297.377mil|Absolute=True">Clearance Constraint: (8.72mil &lt; 10mil) Between Pad IC1-14(4035mil,3321.772mil) on Bottom Layer And Track (4065mil,3290mil)(4065mil,3345mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3711.235mil|Location2.X=3722.485mil|Location1.Y=3072.584mil|Location2.Y=3083.834mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3711.235mil|Location2.X=3722.485mil|Location1.Y=3072.584mil|Location2.Y=3083.834mil|Absolute=True">Clearance Constraint: (8.72mil &lt; 10mil) Between Pad IC1-7(3735mil,3108.228mil) on Bottom Layer And Track (3700mil,2988.151mil)(3700mil,3130mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3670.901mil|Location2.X=3682.151mil|Location1.Y=2820.989mil|Location2.Y=2832.239mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3670.901mil|Location2.X=3682.151mil|Location1.Y=2820.989mil|Location2.Y=2832.239mil|Absolute=True">Clearance Constraint: (8.051mil &lt; 10mil) Between Pad R2-2(3715mil,2799.055mil) on Bottom Layer And Track (3660mil,2735.945mil)(3660mil,3146.317mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3685.183mil|Location2.X=3696.433mil|Location1.Y=3149.58mil|Location2.Y=3160.83mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3685.183mil|Location2.X=3696.433mil|Location1.Y=3149.58mil|Location2.Y=3160.83mil|Absolute=True">Clearance Constraint: (6mil &lt; 10mil) Between Track (3660mil,3146.317mil)(3709.683mil,3196mil) on Bottom Layer And Track (3700mil,3130mil)(3700mil,3146.012mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3685.183mil|Location2.X=3696.433mil|Location1.Y=3149.58mil|Location2.Y=3160.83mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3685.183mil|Location2.X=3696.433mil|Location1.Y=3149.58mil|Location2.Y=3160.83mil|Absolute=True">Clearance Constraint: (6mil &lt; 10mil) Between Track (3660mil,3146.317mil)(3709.683mil,3196mil) on Bottom Layer And Track (3700mil,3146.012mil)(3718.988mil,3165mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3704.17mil|Location2.X=3715.42mil|Location1.Y=3168.567mil|Location2.Y=3179.817mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3704.17mil|Location2.X=3715.42mil|Location1.Y=3168.567mil|Location2.Y=3179.817mil|Absolute=True">Clearance Constraint: (6mil &lt; 10mil) Between Track (3660mil,3146.317mil)(3709.683mil,3196mil) on Bottom Layer And Track (3718.988mil,3165mil)(3740mil,3165mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3713.363mil|Location2.X=3724.613mil|Location1.Y=3173.625mil|Location2.Y=3184.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3713.363mil|Location2.X=3724.613mil|Location1.Y=3173.625mil|Location2.Y=3184.875mil|Absolute=True">Clearance Constraint: (8.5mil &lt; 10mil) Between Track (3700mil,3146.012mil)(3718.988mil,3165mil) on Bottom Layer And Track (3709.683mil,3196mil)(3863.033mil,3196mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3713.363mil|Location2.X=3724.613mil|Location1.Y=3173.625mil|Location2.Y=3184.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3713.363mil|Location2.X=3724.613mil|Location1.Y=3173.625mil|Location2.Y=3184.875mil|Absolute=True">Clearance Constraint: (8.5mil &lt; 10mil) Between Track (3709.683mil,3196mil)(3863.033mil,3196mil) on Bottom Layer And Track (3718.988mil,3165mil)(3740mil,3165mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3734.375mil|Location2.X=3745.625mil|Location1.Y=3174.875mil|Location2.Y=3186.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3734.375mil|Location2.X=3745.625mil|Location1.Y=3174.875mil|Location2.Y=3186.125mil|Absolute=True">Clearance Constraint: (6mil &lt; 10mil) Between Track (3709.683mil,3196mil)(3863.033mil,3196mil) on Bottom Layer And Track (3740mil,3165mil)(3948.52mil,3165mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3857.408mil|Location2.X=3868.658mil|Location1.Y=3174.875mil|Location2.Y=3186.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3857.408mil|Location2.X=3868.658mil|Location1.Y=3174.875mil|Location2.Y=3186.125mil|Absolute=True">Clearance Constraint: (6mil &lt; 10mil) Between Track (3740mil,3165mil)(3948.52mil,3165mil) on Bottom Layer And Track (3863.033mil,3196mil)(3885mil,3217.967mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4035.375mil|Location2.X=4046.625mil|Location1.Y=3373.875mil|Location2.Y=3385.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4035.375mil|Location2.X=4046.625mil|Location1.Y=3373.875mil|Location2.Y=3385.125mil|Absolute=True">Clearance Constraint: (6mil &lt; 10mil) Between Track (3870mil,3390mil)(4060mil,3390mil) on Bottom Layer And Track (3953.439mil,3369mil)(4041mil,3369mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDUFWZCHZDC03FPPFRBPV4CQ1B5PGC4FGVYZAEJEFFV4OXJMQ2TM1H"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Short-Circuit Constraint (Allowed=No) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3538.5mil|Location2.X=3609.124mil|Location1.Y=2857.242mil|Location2.Y=2927.865mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3538.5mil|Location2.X=3609.124mil|Location1.Y=2857.242mil|Location2.Y=2927.865mil|Absolute=True">Short-Circuit Constraint: Between Arc (3555mil,2860mil) on Bottom Layer And Pad Free-3(3540mil,2900mil) on Bottom Layer Location : [X = 3573.812mil][Y = 2892.554mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3587.699mil|Location2.X=3614.734mil|Location1.Y=2986.343mil|Location2.Y=3013.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3587.699mil|Location2.X=3614.734mil|Location1.Y=2986.343mil|Location2.Y=3013.378mil|Absolute=True">Short-Circuit Constraint: Between Arc (3605mil,2980mil) on Bottom Layer And Pad Free-RX(3540mil,3000mil) on Bottom Layer Location : [X = 3601.217mil][Y = 2999.861mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3589.525mil|Location2.X=3668.965mil|Location1.Y=3166.476mil|Location2.Y=3245.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3589.525mil|Location2.X=3668.965mil|Location1.Y=3166.476mil|Location2.Y=3245.916mil|Absolute=True">Short-Circuit Constraint: Between Arc (3608.579mil,3300mil) on Bottom Layer And Pad Free-2(3595mil,3200mil) on Bottom Layer Location : [X = 3629.245mil][Y = 3206.196mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3644.816mil|Location2.X=3670.095mil|Location1.Y=3202.438mil|Location2.Y=3227.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3644.816mil|Location2.X=3670.095mil|Location1.Y=3202.438mil|Location2.Y=3227.718mil|Absolute=True">Short-Circuit Constraint: Between Arc (3608.579mil,3300mil) on Bottom Layer And Pad Free-2(3595mil,3200mil) on Bottom Layer Location : [X = 3657.456mil][Y = 3215.078mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=125795.18mil|Location2.X=-125795.18mil|Location1.Y=125795.18mil|Location2.Y=-125795.18mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=125795.18mil|Location2.X=-125795.18mil|Location1.Y=125795.18mil|Location2.Y=-125795.18mil|Absolute=True">Short-Circuit Constraint: Between Arc (3620mil,3305mil) on Bottom Layer And Pad Free-2(3605mil,3300mil) on Bottom Layer Location : [X = 0mil][Y = 0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3611.426mil|Location2.X=3638.574mil|Location1.Y=3307.622mil|Location2.Y=3334.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3611.426mil|Location2.X=3638.574mil|Location1.Y=3307.622mil|Location2.Y=3334.77mil|Absolute=True">Short-Circuit Constraint: Between Arc (3685mil,3330mil) on Bottom Layer And Pad Free-2(3605mil,3300mil) on Bottom Layer Location : [X = 3625mil][Y = 3321.196mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4127.711mil|Location2.X=4168.45mil|Location1.Y=3288.348mil|Location2.Y=3329.087mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4127.711mil|Location2.X=4168.45mil|Location1.Y=3288.348mil|Location2.Y=3329.087mil|Absolute=True">Short-Circuit Constraint: Between Arc (4060mil,3300mil) on Bottom Layer And Pad Free-2(4150mil,3300mil) on Bottom Layer Location : [X = 4148.081mil][Y = 3308.718mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.591mil|Location2.X=4167.454mil|Location1.Y=3166.26mil|Location2.Y=3251.123mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.591mil|Location2.X=4167.454mil|Location1.Y=3166.26mil|Location2.Y=3251.123mil|Absolute=True">Short-Circuit Constraint: Between Arc (4155mil,3290mil) on Bottom Layer And Pad Free-2(4155mil,3200mil) on Bottom Layer Location : [X = 4125.023mil][Y = 3208.691mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4150.743mil|Location2.X=4229.051mil|Location1.Y=3054.65mil|Location2.Y=3132.958mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4150.743mil|Location2.X=4229.051mil|Location1.Y=3054.65mil|Location2.Y=3132.958mil|Absolute=True">Short-Circuit Constraint: Between Arc (4169.882mil,3000mil) on Bottom Layer And Pad Free-2(4155mil,3100mil) on Bottom Layer Location : [X = 4189.897mil][Y = 3093.804mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3577.155mil|Location2.X=3626.424mil|Location1.Y=3175.365mil|Location2.Y=3224.635mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3577.155mil|Location2.X=3626.424mil|Location1.Y=3175.365mil|Location2.Y=3224.635mil|Absolute=True">Short-Circuit Constraint: Between Pad Free-2(3595mil,3200mil) on Bottom Layer And Track (3595mil,3200mil)(3608.579mil,3200mil) on Bottom Layer Location : [X = 3601.789mil][Y = 3200mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3607.778mil|Location2.X=3642.222mil|Location1.Y=3293.996mil|Location2.Y=3328.439mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3607.778mil|Location2.X=3642.222mil|Location1.Y=3293.996mil|Location2.Y=3328.439mil|Absolute=True">Short-Circuit Constraint: Between Pad Free-2(3605mil,3300mil) on Bottom Layer And Track (3625mil,3305mil)(3625mil,3330mil) on Bottom Layer Location : [X = 3625mil][Y = 3311.218mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4137.257mil|Location2.X=4187.624mil|Location1.Y=3074.816mil|Location2.Y=3125.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4137.257mil|Location2.X=4187.624mil|Location1.Y=3074.816mil|Location2.Y=3125.184mil|Absolute=True">Short-Circuit Constraint: Between Pad Free-2(4155mil,3100mil) on Bottom Layer And Track (4155mil,3100mil)(4169.882mil,3100mil) on Bottom Layer Location : [X = 4162.441mil][Y = 3100mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3525.727mil|Location2.X=3569.273mil|Location1.Y=2878.227mil|Location2.Y=2921.773mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3525.727mil|Location2.X=3569.273mil|Location1.Y=2878.227mil|Location2.Y=2921.773mil|Absolute=True">Short-Circuit Constraint: Between Pad Free-3(3540mil,2900mil) on Bottom Layer And Track (3540mil,2900mil)(3555mil,2900mil) on Bottom Layer Location : [X = 3547.5mil][Y = 2900mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3527.124mil|Location2.X=3610.309mil|Location1.Y=2958.408mil|Location2.Y=3041.592mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3527.124mil|Location2.X=3610.309mil|Location1.Y=2958.408mil|Location2.Y=3041.592mil|Absolute=True">Short-Circuit Constraint: Between Pad Free-RX(3540mil,3000mil) on Bottom Layer And Track (3540mil,3000mil)(3605mil,3000mil) on Bottom Layer Location : [X = 3568.717mil][Y = 3000mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3572.682mil|Location2.X=3614.818mil|Location1.Y=2515.182mil|Location2.Y=2557.318mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3572.682mil|Location2.X=3614.818mil|Location1.Y=2515.182mil|Location2.Y=2557.318mil|Absolute=True">Short-Circuit Constraint: Between Pad Free-RX(3590mil,2532.5mil) on Bottom Layer And Track (3590mil,2532.5mil)(3597.5mil,2540mil) on Bottom Layer Location : [X = 3593.75mil][Y = 2536.25mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3582.619mil|Location2.X=3619.794mil|Location1.Y=2521.412mil|Location2.Y=2558.588mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3582.619mil|Location2.X=3619.794mil|Location1.Y=2521.412mil|Location2.Y=2558.588mil|Absolute=True">Short-Circuit Constraint: Between Pad Free-RX(3590mil,2532.5mil) on Bottom Layer And Track (3597.5mil,2540mil)(3740mil,2540mil) on Bottom Layer Location : [X = 3601.207mil][Y = 2540mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDL4MW0RM0K1R0NC1P5O2SCA2LBPK1FPJNVRRNB5OXH44MLNDXC0LC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3525.606mil|Location2.X=4234.394mil|Location1.Y=1825.606mil|Location2.Y=2802.047mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3525.606mil|Location2.X=4234.394mil|Location1.Y=1825.606mil|Location2.Y=2802.047mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad BT1-N1(3880mil,2180mil) on Bottom Layer And Pad SW1-4(4056.732mil,2778.425mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3329.213mil|Location2.X=4410mil|Location1.Y=2080mil|Location2.Y=2300.787mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3329.213mil|Location2.X=4410mil|Location1.Y=2080mil|Location2.Y=2300.787mil|Absolute=True">Un-Routed Net Constraint: Net NetBT1_P1 Between Pad BT1-P2(3429.213mil,2180mil) on Bottom Layer And Track (4310mil,2200.787mil)(4330.787mil,2180mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3935mil|Location2.X=4255mil|Location1.Y=3221.772mil|Location2.Y=3200mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3935mil|Location2.X=4255mil|Location1.Y=3221.772mil|Location2.Y=3200mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad IC1-14(4035mil,3321.772mil) on Bottom Layer [Unplated] And Track (4155mil,3100mil)(4169.882mil,3100mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3901.551mil|Location2.X=7095.811mil|Location1.Y=1099.189mil|Location2.Y=2673.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3901.551mil|Location2.X=7095.811mil|Location1.Y=1099.189mil|Location2.Y=2673.449mil|Absolute=True">Un-Routed Net Constraint: Net NetR3_2 Between Pad R3-2(3940mil,2641.89mil) on Bottom Layer And Pad TP1-1(7080mil,1115mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4007.52mil|Location2.X=4322.48mil|Location1.Y=2557.953mil|Location2.Y=2605.197mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4007.52mil|Location2.X=4322.48mil|Location1.Y=2557.953mil|Location2.Y=2605.197mil|Absolute=True">Un-Routed Net Constraint: Net NetBT1_P1 Between Pad SW1-6(4056.732mil,2581.575mil) on Bottom Layer And Pad SW1-3(4273.268mil,2581.575mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3956.732mil|Location2.X=4369.882mil|Location1.Y=2678.425mil|Location2.Y=2881.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3956.732mil|Location2.X=4369.882mil|Location1.Y=2678.425mil|Location2.Y=2881.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW1-4(4056.732mil,2778.425mil) on Bottom Layer And Track (4269.882mil,2781.811mil)(4269.882mil,2980mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3502.047mil|Location2.X=3537.953mil|Location1.Y=2362.047mil|Location2.Y=2397.953mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3502.047mil|Location2.X=3537.953mil|Location1.Y=2362.047mil|Location2.Y=2397.953mil|Absolute=True">Un-Routed Net Constraint: Via (3520mil,2380mil) from Top Layer to Bottom Layer Dead Copper - Net Not Assigned.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4227.047mil|Location2.X=4262.953mil|Location1.Y=2362.047mil|Location2.Y=2397.953mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4227.047mil|Location2.X=4262.953mil|Location1.Y=2362.047mil|Location2.Y=2397.953mil|Absolute=True">Un-Routed Net Constraint: Via (4245mil,2380mil) from Top Layer to Bottom Layer Dead Copper - Net Not Assigned.</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDZRF3WVC4H4KSIU2BY2WYXGN53H31K5FVFPJ0YGXSIGOW4UQ0T3M"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3571.784mil|Location2.X=3602.47mil|Location1.Y=2876.784mil|Location2.Y=2899.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3571.784mil|Location2.X=3602.47mil|Location1.Y=2876.784mil|Location2.Y=2899.784mil|Absolute=True">Width Constraint: Arc (3555mil,2860mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3607.642mil|Location2.X=3638.328mil|Location1.Y=2982.642mil|Location2.Y=3005.642mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3607.642mil|Location2.X=3638.328mil|Location1.Y=2982.642mil|Location2.Y=3005.642mil|Absolute=True">Width Constraint: Arc (3605mil,2980mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3624.106mil|Location2.X=3665.423mil|Location1.Y=3190.459mil|Location2.Y=3218.459mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3624.106mil|Location2.X=3665.423mil|Location1.Y=3190.459mil|Location2.Y=3218.459mil|Absolute=True">Width Constraint: Arc (3608.579mil,3300mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.42mil|Location2.X=3697.082mil|Location1.Y=3209.031mil|Location2.Y=3237.031mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.42mil|Location2.X=3697.082mil|Location1.Y=3209.031mil|Location2.Y=3237.031mil|Absolute=True">Width Constraint: Arc (3608.579mil,3300mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3614.535mil|Location2.X=3637.787mil|Location1.Y=3292.465mil|Location2.Y=3310.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3614.535mil|Location2.X=3637.787mil|Location1.Y=3292.465mil|Location2.Y=3310.465mil|Absolute=True">Width Constraint: Arc (3620mil,3305mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3714.242mil|Location2.X=3747.441mil|Location1.Y=3273.799mil|Location2.Y=3304.067mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3714.242mil|Location2.X=3747.441mil|Location1.Y=3273.799mil|Location2.Y=3304.067mil|Absolute=True">Width Constraint: Arc (3646.225mil,3321.772mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3628.574mil|Location2.X=3666.348mil|Location1.Y=3358.426mil|Location2.Y=3386.426mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3628.574mil|Location2.X=3666.348mil|Location1.Y=3358.426mil|Location2.Y=3386.426mil|Absolute=True">Width Constraint: Arc (3685mil,3330mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3636.132mil|Location2.X=3666.709mil|Location1.Y=2637.769mil|Location2.Y=2660.769mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3636.132mil|Location2.X=3666.709mil|Location1.Y=2637.769mil|Location2.Y=2660.769mil|Absolute=True">Width Constraint: Arc (3704.933mil,2705mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3662.109mil|Location2.X=3700.117mil|Location1.Y=2683.054mil|Location2.Y=2711.054mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3662.109mil|Location2.X=3700.117mil|Location1.Y=2683.054mil|Location2.Y=2711.054mil|Absolute=True">Width Constraint: Arc (3715mil,2735.945mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3772.58mil|Location2.X=3803.082mil|Location1.Y=2589.441mil|Location2.Y=2612.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3772.58mil|Location2.X=3803.082mil|Location1.Y=2589.441mil|Location2.Y=2612.441mil|Absolute=True">Width Constraint: Arc (3720.426mil,2664.595mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3620.236mil|Location2.X=3650.922mil|Location1.Y=2599.811mil|Location2.Y=2622.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3620.236mil|Location2.X=3650.922mil|Location1.Y=2599.811mil|Location2.Y=2622.811mil|Absolute=True">Width Constraint: Arc (3720.426mil,2700mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3756.355mil|Location2.X=3794.363mil|Location1.Y=3361.355mil|Location2.Y=3389.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3756.355mil|Location2.X=3794.363mil|Location1.Y=3361.355mil|Location2.Y=3389.355mil|Absolute=True">Width Constraint: Arc (3735mil,3340mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3753.277mil|Location2.X=3783.78mil|Location1.Y=2623.82mil|Location2.Y=2646.82mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3753.277mil|Location2.X=3783.78mil|Location1.Y=2623.82mil|Location2.Y=2646.82mil|Absolute=True">Width Constraint: Arc (3740.098mil,2660mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3806.282mil|Location2.X=3836.784mil|Location1.Y=2560.718mil|Location2.Y=2583.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3806.282mil|Location2.X=3836.784mil|Location1.Y=2560.718mil|Location2.Y=2583.718mil|Absolute=True">Width Constraint: Arc (3740mil,2650mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3965.836mil|Location2.X=3997.818mil|Location1.Y=3198.326mil|Location2.Y=3229.017mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3965.836mil|Location2.X=3997.818mil|Location1.Y=3198.326mil|Location2.Y=3229.017mil|Absolute=True">Width Constraint: Arc (3869.853mil,3246.421mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3836.251mil|Location2.X=3859.503mil|Location1.Y=3370.749mil|Location2.Y=3388.749mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3836.251mil|Location2.X=3859.503mil|Location1.Y=3370.749mil|Location2.Y=3388.749mil|Absolute=True">Width Constraint: Arc (3870mil,3355mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3892.109mil|Location2.X=3915.502mil|Location1.Y=2767.109mil|Location2.Y=2785.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3892.109mil|Location2.X=3915.502mil|Location1.Y=2767.109mil|Location2.Y=2785.109mil|Absolute=True">Width Constraint: Arc (3940mil,2815mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3927.3mil|Location2.X=3947.993mil|Location1.Y=2995.865mil|Location2.Y=3014.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3927.3mil|Location2.X=3947.993mil|Location1.Y=2995.865mil|Location2.Y=3014.538mil|Absolute=True">Width Constraint: Arc (3952.071mil,3012.071mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3930.42mil|Location2.X=3953.387mil|Location1.Y=3352.5mil|Location2.Y=3370.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3930.42mil|Location2.X=3953.387mil|Location1.Y=3352.5mil|Location2.Y=3370.5mil|Absolute=True">Width Constraint: Arc (3957.011mil,3345.47mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4014.629mil|Location2.X=4055.491mil|Location1.Y=2871.297mil|Location2.Y=2899.297mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4014.629mil|Location2.X=4055.491mil|Location1.Y=2871.297mil|Location2.Y=2899.297mil|Absolute=True">Width Constraint: Arc (4011.5mil,2926.651mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4048.971mil|Location2.X=4072.364mil|Location1.Y=3352.971mil|Location2.Y=3370.971mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4048.971mil|Location2.X=4072.364mil|Location1.Y=3352.971mil|Location2.Y=3370.971mil|Absolute=True">Width Constraint: Arc (4041mil,3345mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4088.148mil|Location2.X=4125.176mil|Location1.Y=3018.588mil|Location2.Y=3046.588mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4088.148mil|Location2.X=4125.176mil|Location1.Y=3018.588mil|Location2.Y=3046.588mil|Absolute=True">Width Constraint: Arc (4057.64mil,2995.873mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4114.64mil|Location2.X=4138.033mil|Location1.Y=3354.64mil|Location2.Y=3372.64mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4114.64mil|Location2.X=4138.033mil|Location1.Y=3354.64mil|Location2.Y=3372.64mil|Absolute=True">Width Constraint: Arc (4060mil,3300mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4045.068mil|Location2.X=4085.647mil|Location1.Y=3041.785mil|Location2.Y=3069.785mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4045.068mil|Location2.X=4085.647mil|Location1.Y=3041.785mil|Location2.Y=3069.785mil|Absolute=True">Width Constraint: Arc (4075.876mil,3089.307mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3978.612mil|Location2.X=4012.115mil|Location1.Y=3040.162mil|Location2.Y=3070.304mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3978.612mil|Location2.X=4012.115mil|Location1.Y=3040.162mil|Location2.Y=3070.304mil|Absolute=True">Width Constraint: Arc (4085mil,3094.572mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.04mil|Location2.X=4057.656mil|Location1.Y=3067.08mil|Location2.Y=3097.566mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.04mil|Location2.X=4057.656mil|Location1.Y=3067.08mil|Location2.Y=3097.566mil|Absolute=True">Width Constraint: Arc (4112.298mil,3108.228mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4153.247mil|Location2.X=4186.75mil|Location1.Y=2807.718mil|Location2.Y=2837.86mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4153.247mil|Location2.X=4186.75mil|Location1.Y=2807.718mil|Location2.Y=2837.86mil|Absolute=True">Width Constraint: Arc (4133.835mil,2810.02mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.36mil|Location2.X=4105.754mil|Location1.Y=3217.36mil|Location2.Y=3235.36mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.36mil|Location2.X=4105.754mil|Location1.Y=3217.36mil|Location2.Y=3235.36mil|Absolute=True">Width Constraint: Arc (4155mil,3290mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4226.593mil|Location2.X=4264.6mil|Location1.Y=3056.711mil|Location2.Y=3084.711mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4226.593mil|Location2.X=4264.6mil|Location1.Y=3056.711mil|Location2.Y=3084.711mil|Absolute=True">Width Constraint: Arc (4169.882mil,3000mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4172.109mil|Location2.X=4210.117mil|Location1.Y=2682.109mil|Location2.Y=2710.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4172.109mil|Location2.X=4210.117mil|Location1.Y=2682.109mil|Location2.Y=2710.109mil|Absolute=True">Width Constraint: Arc (4225mil,2735mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4123.73mil|Location2.X=4157.233mil|Location1.Y=2851.894mil|Location2.Y=2882.035mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4123.73mil|Location2.X=4157.233mil|Location1.Y=2851.894mil|Location2.Y=2882.035mil|Absolute=True">Width Constraint: Arc (4230.118mil,2906.303mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4256.874mil|Location2.X=4294.881mil|Location1.Y=2765.417mil|Location2.Y=2793.417mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4256.874mil|Location2.X=4294.881mil|Location1.Y=2765.417mil|Location2.Y=2793.417mil|Absolute=True">Width Constraint: Arc (4273.268mil,2781.811mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3536mil|Location2.X=3569.87mil|Location1.Y=2888.5mil|Location2.Y=2911.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3536mil|Location2.X=3569.87mil|Location1.Y=2888.5mil|Location2.Y=2911.5mil|Absolute=True">Width Constraint: Track (3540mil,2900mil)(3555mil,2900mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3561mil|Location2.X=3594.87mil|Location1.Y=2988.5mil|Location2.Y=3011.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3561mil|Location2.X=3594.87mil|Location1.Y=2988.5mil|Location2.Y=3011.5mil|Absolute=True">Width Constraint: Track (3540mil,3000mil)(3605mil,3000mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3582.25mil|Location2.X=3612.752mil|Location1.Y=2524.75mil|Location2.Y=2547.75mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3582.25mil|Location2.X=3612.752mil|Location1.Y=2524.75mil|Location2.Y=2547.75mil|Absolute=True">Width Constraint: Track (3590mil,2532.5mil)(3597.5mil,2540mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3583.5mil|Location2.X=3606.5mil|Location1.Y=2768.5mil|Location2.Y=2793.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3583.5mil|Location2.X=3606.5mil|Location1.Y=2768.5mil|Location2.Y=2793.795mil|Absolute=True">Width Constraint: Track (3595mil,2700mil)(3595mil,2860mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3587.789mil|Location2.X=3629.779mil|Location1.Y=3186mil|Location2.Y=3214mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3587.789mil|Location2.X=3629.779mil|Location1.Y=3186mil|Location2.Y=3214mil|Absolute=True">Width Constraint: Track (3595mil,3200mil)(3608.579mil,3200mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3657.25mil|Location2.X=3691.12mil|Location1.Y=2528.5mil|Location2.Y=2551.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3657.25mil|Location2.X=3691.12mil|Location1.Y=2528.5mil|Location2.Y=2551.5mil|Absolute=True">Width Constraint: Track (3597.5mil,2540mil)(3740mil,2540mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3613.5mil|Location2.X=3636.5mil|Location1.Y=2831mil|Location2.Y=2856.295mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3613.5mil|Location2.X=3636.5mil|Location1.Y=2831mil|Location2.Y=2856.295mil|Absolute=True">Width Constraint: Track (3625mil,2705mil)(3625mil,2980mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3616mil|Location2.X=3634mil|Location1.Y=3308.5mil|Location2.Y=3327.85mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3616mil|Location2.X=3634mil|Location1.Y=3308.5mil|Location2.Y=3327.85mil|Absolute=True">Width Constraint: Track (3625mil,3305mil)(3625mil,3330mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3645.84mil|Location2.X=3674mil|Location1.Y=2927.131mil|Location2.Y=2958.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3645.84mil|Location2.X=3674mil|Location1.Y=2927.131mil|Location2.Y=2958.401mil|Absolute=True">Width Constraint: Track (3660mil,2735.945mil)(3660mil,3146.317mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3670.841mil|Location2.X=3708.616mil|Location1.Y=3157.159mil|Location2.Y=3185.159mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3670.841mil|Location2.X=3708.616mil|Location1.Y=3157.159mil|Location2.Y=3185.159mil|Absolute=True">Width Constraint: Track (3660mil,3146.317mil)(3709.683mil,3196mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3680.144mil|Location2.X=3717.918mil|Location1.Y=3230.144mil|Location2.Y=3258.144mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3680.144mil|Location2.X=3717.918mil|Location1.Y=3230.144mil|Location2.Y=3258.144mil|Absolute=True">Width Constraint: Track (3679.289mil,3229.289mil)(3708.999mil,3258.999mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696mil|Location2.X=3737.99mil|Location1.Y=3376mil|Location2.Y=3404mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696mil|Location2.X=3737.99mil|Location1.Y=3376mil|Location2.Y=3404mil|Absolute=True">Width Constraint: Track (3685mil,3390mil)(3735mil,3390mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3685.84mil|Location2.X=3714mil|Location1.Y=3045.075mil|Location2.Y=3076.345mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3685.84mil|Location2.X=3714mil|Location1.Y=3045.075mil|Location2.Y=3076.345mil|Absolute=True">Width Constraint: Track (3700mil,2988.151mil)(3700mil,3130mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3692.575mil|Location2.X=3730.583mil|Location1.Y=2967.575mil|Location2.Y=2995.575mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3692.575mil|Location2.X=3730.583mil|Location1.Y=2967.575mil|Location2.Y=2995.575mil|Absolute=True">Width Constraint: Track (3700mil,2988.151mil)(3713.151mil,2975mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3688.5mil|Location2.X=3711.5mil|Location1.Y=3126.506mil|Location2.Y=3151.801mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3688.5mil|Location2.X=3711.5mil|Location1.Y=3126.506mil|Location2.Y=3151.801mil|Absolute=True">Width Constraint: Track (3700mil,3130mil)(3700mil,3146.012mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3697.994mil|Location2.X=3728.496mil|Location1.Y=3144.006mil|Location2.Y=3167.006mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3697.994mil|Location2.X=3728.496mil|Location1.Y=3144.006mil|Location2.Y=3167.006mil|Absolute=True">Width Constraint: Track (3700mil,3146.012mil)(3718.988mil,3165mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3709.905mil|Location2.X=3743.775mil|Location1.Y=2613.598mil|Location2.Y=2636.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3709.905mil|Location2.X=3743.775mil|Location1.Y=2613.598mil|Location2.Y=2636.598mil|Absolute=True">Width Constraint: Track (3702.713mil,2625.098mil)(3740.098mil,2625.098mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3772.358mil|Location2.X=3814.348mil|Location1.Y=3182mil|Location2.Y=3210mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3772.358mil|Location2.X=3814.348mil|Location1.Y=3182mil|Location2.Y=3210mil|Absolute=True">Width Constraint: Track (3709.683mil,3196mil)(3863.033mil,3196mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3700.075mil|Location2.X=3742.065mil|Location1.Y=2861mil|Location2.Y=2889mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3700.075mil|Location2.X=3742.065mil|Location1.Y=2861mil|Location2.Y=2889mil|Absolute=True">Width Constraint: Track (3713.151mil,2875mil)(3715mil,2875mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3700.84mil|Location2.X=3729mil|Location1.Y=2823.028mil|Location2.Y=2854.298mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3700.84mil|Location2.X=3729mil|Location1.Y=2823.028mil|Location2.Y=2854.298mil|Absolute=True">Width Constraint: Track (3715mil,2799.055mil)(3715mil,2875mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3717.994mil|Location2.X=3751.864mil|Location1.Y=3153.5mil|Location2.Y=3176.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3717.994mil|Location2.X=3751.864mil|Location1.Y=3153.5mil|Location2.Y=3176.5mil|Absolute=True">Width Constraint: Track (3718.988mil,3165mil)(3740mil,3165mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3721.64mil|Location2.X=3759.648mil|Location1.Y=3093.588mil|Location2.Y=3121.588mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3721.64mil|Location2.X=3759.648mil|Location1.Y=3093.588mil|Location2.Y=3121.588mil|Absolute=True">Width Constraint: Track (3735mil,3108.228mil)(3736.28mil,3106.949mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3726mil|Location2.X=3744mil|Location1.Y=3302.597mil|Location2.Y=3321.947mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3726mil|Location2.X=3744mil|Location1.Y=3302.597mil|Location2.Y=3321.947mil|Absolute=True">Width Constraint: Track (3735mil,3301.421mil)(3735mil,3321.772mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3724.78mil|Location2.X=3747.78mil|Location1.Y=3068.834mil|Location2.Y=3094.13mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3724.78mil|Location2.X=3747.78mil|Location1.Y=3068.834mil|Location2.Y=3094.13mil|Absolute=True">Width Constraint: Track (3736.28mil,3053.72mil)(3736.28mil,3106.949mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3744.14mil|Location2.X=3774.826mil|Location1.Y=3022.86mil|Location2.Y=3045.86mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3744.14mil|Location2.X=3774.826mil|Location1.Y=3022.86mil|Location2.Y=3045.86mil|Absolute=True">Width Constraint: Track (3736.28mil,3053.72mil)(3775mil,3015mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3830.26mil|Location2.X=3872.25mil|Location1.Y=3151mil|Location2.Y=3179mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3830.26mil|Location2.X=3872.25mil|Location1.Y=3151mil|Location2.Y=3179mil|Absolute=True">Width Constraint: Track (3740mil,3165mil)(3948.52mil,3165mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3763.5mil|Location2.X=3786.5mil|Location1.Y=2826mil|Location2.Y=2851.295mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3763.5mil|Location2.X=3786.5mil|Location1.Y=2826mil|Location2.Y=2851.295mil|Absolute=True">Width Constraint: Track (3775mil,2660mil)(3775mil,3015mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3772.73mil|Location2.X=3795.73mil|Location1.Y=3076.695mil|Location2.Y=3101.99mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3772.73mil|Location2.X=3795.73mil|Location1.Y=3076.695mil|Location2.Y=3101.99mil|Absolute=True">Width Constraint: Track (3784.23mil,3088.181mil)(3784.23mil,3088.209mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3773.115mil|Location2.X=3796.115mil|Location1.Y=3086.718mil|Location2.Y=3112.01mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3773.115mil|Location2.X=3796.115mil|Location1.Y=3086.718mil|Location2.Y=3112.01mil|Absolute=True">Width Constraint: Track (3784.23mil,3088.209mil)(3785mil,3108.228mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3775.39mil|Location2.X=3806.076mil|Location1.Y=3094.838mil|Location2.Y=3117.838mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3775.39mil|Location2.X=3806.076mil|Location1.Y=3094.838mil|Location2.Y=3117.838mil|Absolute=True">Width Constraint: Track (3785mil,3108.228mil)(3788.78mil,3104.449mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3776mil|Location2.X=3794mil|Location1.Y=3321.886mil|Location2.Y=3341.236mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3776mil|Location2.X=3794mil|Location1.Y=3321.886mil|Location2.Y=3341.236mil|Absolute=True">Width Constraint: Track (3785mil,3321.772mil)(3785mil,3340mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3777.28mil|Location2.X=3800.28mil|Location1.Y=3067mil|Location2.Y=3092.295mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3777.28mil|Location2.X=3800.28mil|Location1.Y=3067mil|Location2.Y=3092.295mil|Absolute=True">Width Constraint: Track (3788.78mil,3052.552mil)(3788.78mil,3104.449mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3788.113mil|Location2.X=3818.799mil|Location1.Y=3030.218mil|Location2.Y=3053.218mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3788.113mil|Location2.X=3818.799mil|Location1.Y=3030.218mil|Location2.Y=3053.218mil|Absolute=True">Width Constraint: Track (3788.78mil,3052.552mil)(3810.447mil,3030.885mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3798.947mil|Location2.X=3821.947mil|Location1.Y=2836.24mil|Location2.Y=2861.535mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3798.947mil|Location2.X=3821.947mil|Location1.Y=2836.24mil|Location2.Y=2861.535mil|Absolute=True">Width Constraint: Track (3810.447mil,2664.595mil)(3810.447mil,3030.885mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3825.39mil|Location2.X=3856.076mil|Location1.Y=3094.838mil|Location2.Y=3117.838mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3825.39mil|Location2.X=3856.076mil|Location1.Y=3094.838mil|Location2.Y=3117.838mil|Absolute=True">Width Constraint: Track (3835mil,3108.228mil)(3838.78mil,3104.449mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3826mil|Location2.X=3844mil|Location1.Y=3329.386mil|Location2.Y=3348.736mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3826mil|Location2.X=3844mil|Location1.Y=3329.386mil|Location2.Y=3348.736mil|Absolute=True">Width Constraint: Track (3835mil,3321.772mil)(3835mil,3355mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3827.28mil|Location2.X=3850.28mil|Location1.Y=3071.334mil|Location2.Y=3096.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3827.28mil|Location2.X=3850.28mil|Location1.Y=3071.334mil|Location2.Y=3096.63mil|Absolute=True">Width Constraint: Track (3838.78mil,3061.22mil)(3838.78mil,3104.449mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3832.89mil|Location2.X=3863.576mil|Location1.Y=3044.11mil|Location2.Y=3067.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3832.89mil|Location2.X=3863.576mil|Location1.Y=3044.11mil|Location2.Y=3067.11mil|Absolute=True">Width Constraint: Track (3838.78mil,3061.22mil)(3850mil,3050mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3838.5mil|Location2.X=3861.5mil|Location1.Y=2838.5mil|Location2.Y=2863.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3838.5mil|Location2.X=3861.5mil|Location1.Y=2838.5mil|Location2.Y=2863.795mil|Absolute=True">Width Constraint: Track (3850mil,2650mil)(3850mil,3050mil) on Bottom Layer Actual Width = 20mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3860.017mil|Location2.X=3897.791mil|Location1.Y=3192.983mil|Location2.Y=3220.983mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3860.017mil|Location2.X=3897.791mil|Location1.Y=3192.983mil|Location2.Y=3220.983mil|Absolute=True">Width Constraint: Track (3863.033mil,3196mil)(3885mil,3217.967mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3956mil|Location2.X=3981.78mil|Location1.Y=3381mil|Location2.Y=3399mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3956mil|Location2.X=3981.78mil|Location1.Y=3381mil|Location2.Y=3399mil|Absolute=True">Width Constraint: Track (3870mil,3390mil)(4060mil,3390mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3876mil|Location2.X=3894mil|Location1.Y=2952.614mil|Location2.Y=2971.964mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3876mil|Location2.X=3894mil|Location1.Y=2952.614mil|Location2.Y=2971.964mil|Absolute=True">Width Constraint: Track (3885mil,2815mil)(3885mil,3108.228mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3870.84mil|Location2.X=3899mil|Location1.Y=3255.869mil|Location2.Y=3287.139mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3870.84mil|Location2.X=3899mil|Location1.Y=3255.869mil|Location2.Y=3287.139mil|Absolute=True">Width Constraint: Track (3885mil,3217.967mil)(3885mil,3321.772mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.251mil|Location2.X=3942.251mil|Location1.Y=3336.569mil|Location2.Y=3355.919mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3924.251mil|Location2.X=3942.251mil|Location1.Y=3336.569mil|Location2.Y=3355.919mil|Absolute=True">Width Constraint: Track (3933.251mil,3344.291mil)(3933.251mil,3346.847mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3925.126mil|Location2.X=3943.265mil|Location1.Y=3322.715mil|Location2.Y=3342.032mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3925.126mil|Location2.X=3943.265mil|Location1.Y=3322.715mil|Location2.Y=3342.032mil|Absolute=True">Width Constraint: Track (3933.251mil,3344.291mil)(3935mil,3321.772mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.84mil|Location2.X=3949mil|Location1.Y=3046.15mil|Location2.Y=3077.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3920.84mil|Location2.X=3949mil|Location1.Y=3046.15mil|Location2.Y=3077.42mil|Absolute=True">Width Constraint: Track (3935mil,3012.071mil)(3935mil,3108.228mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3961.75mil|Location2.X=4003.74mil|Location1.Y=2867.89mil|Location2.Y=2895.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3961.75mil|Location2.X=4003.74mil|Location1.Y=2867.89mil|Location2.Y=2895.89mil|Absolute=True">Width Constraint: Track (3940mil,2881.89mil)(4011.5mil,2881.89mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3942.664mil|Location2.X=3980.438mil|Location1.Y=3159.144mil|Location2.Y=3187.144mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3942.664mil|Location2.X=3980.438mil|Location1.Y=3159.144mil|Location2.Y=3187.144mil|Absolute=True">Width Constraint: Track (3948.52mil,3165mil)(3964.808mil,3181.288mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3988.219mil|Location2.X=4013.999mil|Location1.Y=3360mil|Location2.Y=3378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3988.219mil|Location2.X=4013.999mil|Location1.Y=3360mil|Location2.Y=3378mil|Absolute=True">Width Constraint: Track (3953.439mil,3369mil)(4041mil,3369mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3976mil|Location2.X=3994mil|Location1.Y=3092.4mil|Location2.Y=3111.75mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3976mil|Location2.X=3994mil|Location1.Y=3092.4mil|Location2.Y=3111.75mil|Absolute=True">Width Constraint: Track (3985mil,3094.572mil)(3985mil,3108.228mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3970.84mil|Location2.X=3999mil|Location1.Y=3270.097mil|Location2.Y=3301.367mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3970.84mil|Location2.X=3999mil|Location1.Y=3270.097mil|Location2.Y=3301.367mil|Absolute=True">Width Constraint: Track (3985mil,3246.421mil)(3985mil,3321.772mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4014.72mil|Location2.X=4052.728mil|Location1.Y=2995.431mil|Location2.Y=3023.431mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4014.72mil|Location2.X=4052.728mil|Location1.Y=2995.431mil|Location2.Y=3023.431mil|Absolute=True">Width Constraint: Track (4014.289mil,3023.861mil)(4043.151mil,2995mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4036.738mil|Location2.X=4072.074mil|Location1.Y=3046.29mil|Location2.Y=3075.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4036.738mil|Location2.X=4072.074mil|Location1.Y=3046.29mil|Location2.Y=3075.481mil|Absolute=True">Width Constraint: Track (4050.737mil,3061.481mil)(4050.738mil,3061.48mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4056mil|Location2.X=4074mil|Location1.Y=3308.5mil|Location2.Y=3327.85mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4056mil|Location2.X=4074mil|Location1.Y=3308.5mil|Location2.Y=3327.85mil|Absolute=True">Width Constraint: Track (4065mil,3290mil)(4065mil,3345mil) on Bottom Layer Actual Width = 15mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4101.337mil|Location2.X=4129.5mil|Location1.Y=2978.059mil|Location2.Y=3009.329mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4101.337mil|Location2.X=4129.5mil|Location1.Y=2978.059mil|Location2.Y=3009.329mil|Absolute=True">Width Constraint: Track (4115.337mil,2995.878mil)(4115.338mil,2994.781mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4105.627mil|Location2.X=4147.617mil|Location1.Y=2980.781mil|Location2.Y=3008.781mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4105.627mil|Location2.X=4147.617mil|Location1.Y=2980.781mil|Location2.Y=3008.781mil|Absolute=True">Width Constraint: Track (4115.338mil,2994.781mil)(4123.917mil,2994.781mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4113.018mil|Location2.X=4146.579mil|Location1.Y=2971.274mil|Location2.Y=3001.39mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4113.018mil|Location2.X=4146.579mil|Location1.Y=2971.274mil|Location2.Y=3001.39mil|Absolute=True">Width Constraint: Track (4123.917mil,2994.781mil)(4130.118mil,2980mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4115.958mil|Location2.X=4144.118mil|Location1.Y=2929.152mil|Location2.Y=2960.421mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4115.958mil|Location2.X=4144.118mil|Location1.Y=2929.152mil|Location2.Y=2960.421mil|Absolute=True">Width Constraint: Track (4130.118mil,2906.303mil)(4130.118mil,2980mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4148.441mil|Location2.X=4190.431mil|Location1.Y=3086mil|Location2.Y=3114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4148.441mil|Location2.X=4190.431mil|Location1.Y=3086mil|Location2.Y=3114mil|Absolute=True">Width Constraint: Track (4155mil,3100mil)(4169.882mil,3100mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.84mil|Location2.X=4184mil|Location1.Y=2758.51mil|Location2.Y=2789.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4155.84mil|Location2.X=4184mil|Location1.Y=2758.51mil|Location2.Y=2789.78mil|Absolute=True">Width Constraint: Track (4170mil,2735mil)(4170mil,2810.02mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4235.134mil|Location2.X=4277.124mil|Location1.Y=2666mil|Location2.Y=2694mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4235.134mil|Location2.X=4277.124mil|Location1.Y=2666mil|Location2.Y=2694mil|Absolute=True">Width Constraint: Track (4225mil,2680mil)(4273.268mil,2680mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4255.722mil|Location2.X=4283.882mil|Location1.Y=2866.905mil|Location2.Y=2898.175mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4255.722mil|Location2.X=4283.882mil|Location1.Y=2866.905mil|Location2.Y=2898.175mil|Absolute=True">Width Constraint: Track (4269.882mil,2781.811mil)(4269.882mil,2980mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4255.722mil|Location2.X=4283.882mil|Location1.Y=2976mil|Location2.Y=3007.27mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4255.722mil|Location2.X=4283.882mil|Location1.Y=2976mil|Location2.Y=3007.27mil|Absolute=True">Width Constraint: Track (4269.882mil,2980mil)(4269.882mil,3000mil) on Bottom Layer Actual Width = 25mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.268mil|Location2.X=4297.268mil|Location1.Y=2487.653mil|Location2.Y=2535.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.268mil|Location2.X=4297.268mil|Location1.Y=2487.653mil|Location2.Y=2535.653mil|Absolute=True">Width Constraint: Track (4273.268mil,2441.732mil)(4273.268mil,2581.575mil) on Bottom Layer Actual Width = 45mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4267.634mil|Location2.X=4315.641mil|Location1.Y=2399.366mil|Location2.Y=2447.366mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4267.634mil|Location2.X=4315.641mil|Location1.Y=2399.366mil|Location2.Y=2447.366mil|Absolute=True">Width Constraint: Track (4273.268mil,2441.732mil)(4310mil,2405mil) on Bottom Layer Actual Width = 45mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4286mil|Location2.X=4334mil|Location1.Y=2278.894mil|Location2.Y=2326.894mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4286mil|Location2.X=4334mil|Location1.Y=2278.894mil|Location2.Y=2326.894mil|Absolute=True">Width Constraint: Track (4310mil,2200.787mil)(4310mil,2405mil) on Bottom Layer Actual Width = 45mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4296.394mil|Location2.X=4344.401mil|Location1.Y=2166.394mil|Location2.Y=2214.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4296.394mil|Location2.X=4344.401mil|Location1.Y=2166.394mil|Location2.Y=2214.394mil|Absolute=True">Width Constraint: Track (4310mil,2200.787mil)(4330.787mil,2180mil) on Bottom Layer Actual Width = 45mil, Target Width = 10mil</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDWRX4ZLZ2AKKPL03YVY1V1ZY0TLVBINKPPWGG30PPHIXQ03ROGZG"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3707.526mil|Location2.X=3718.776mil|Location1.Y=2829.434mil|Location2.Y=2840.684mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3707.526mil|Location2.X=3718.776mil|Location1.Y=2829.434mil|Location2.Y=2840.684mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (8.89mil &lt; 10mil) Between Pad DS2-2(3713.151mil,2875mil) on Multi-Layer And Pad R2-2(3715mil,2799.055mil) on Bottom Layer [Bottom Solder] Mask Sliver [8.89mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDWZWDVVZKTVSOQTSQVGHTT444EEHDNAKYRSLDHP5XJOUYZDRGFM"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.812mil|Location2.X=3468.479mil|Location1.Y=2461.147mil|Location2.Y=2468.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3460.812mil|Location2.X=3468.479mil|Location1.Y=2461.147mil|Location2.Y=2468.814mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad Free-3(3490mil,2532.5mil) on Bottom Layer And Track (3464.646mil,2292.992mil)(3464.646mil,2477.244mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3461.167mil|Location2.X=3468.833mil|Location1.Y=2473.411mil|Location2.Y=2481.077mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3461.167mil|Location2.X=3468.833mil|Location1.Y=2473.411mil|Location2.Y=2481.077mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad Free-3(3490mil,2532.5mil) on Bottom Layer And Track (3464.646mil,2477.244mil)(3643.78mil,2477.244mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3561.167mil|Location2.X=3568.833mil|Location1.Y=2473.411mil|Location2.Y=2481.077mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3561.167mil|Location2.X=3568.833mil|Location1.Y=2473.411mil|Location2.Y=2481.077mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad Free-RX(3590mil,2532.5mil) on Bottom Layer And Track (3464.646mil,2477.244mil)(3643.78mil,2477.244mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4015.595mil|Location2.X=4026.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4015.595mil|Location2.X=4026.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-1(4035mil,3108.228mil) on Bottom Layer And Track (3714.724mil,3152.008mil)(4055.276mil,3152.008mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4048.076mil|Location2.X=4059.326mil|Location1.Y=3072.584mil|Location2.Y=3083.834mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4048.076mil|Location2.X=4059.326mil|Location1.Y=3072.584mil|Location2.Y=3083.834mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.843mil &lt; 10mil) Between Pad IC1-1(4035mil,3108.228mil) on Bottom Layer And Track (4062.559mil,3078.189mil)(4062.559mil,3138.228mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3843.155mil|Location2.X=3854.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3843.155mil|Location2.X=3854.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-10(3835mil,3321.772mil) on Bottom Layer And Track (3714.724mil,3277.992mil)(4055.276mil,3277.992mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3893.155mil|Location2.X=3904.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3893.155mil|Location2.X=3904.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-11(3885mil,3321.772mil) on Bottom Layer And Track (3714.724mil,3277.992mil)(4055.276mil,3277.992mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3943.155mil|Location2.X=3954.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3943.155mil|Location2.X=3954.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-12(3935mil,3321.772mil) on Bottom Layer And Track (3714.724mil,3277.992mil)(4055.276mil,3277.992mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3993.155mil|Location2.X=4004.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3993.155mil|Location2.X=4004.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-13(3985mil,3321.772mil) on Bottom Layer And Track (3714.724mil,3277.992mil)(4055.276mil,3277.992mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4043.155mil|Location2.X=4054.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4043.155mil|Location2.X=4054.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-14(4035mil,3321.772mil) on Bottom Layer And Track (3714.724mil,3277.992mil)(4055.276mil,3277.992mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3965.595mil|Location2.X=3976.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3965.595mil|Location2.X=3976.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-2(3985mil,3108.228mil) on Bottom Layer And Track (3714.724mil,3152.008mil)(4055.276mil,3152.008mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3915.595mil|Location2.X=3926.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3915.595mil|Location2.X=3926.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-3(3935mil,3108.228mil) on Bottom Layer And Track (3714.724mil,3152.008mil)(4055.276mil,3152.008mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3865.595mil|Location2.X=3876.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3865.595mil|Location2.X=3876.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-4(3885mil,3108.228mil) on Bottom Layer And Track (3714.724mil,3152.008mil)(4055.276mil,3152.008mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3815.595mil|Location2.X=3826.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3815.595mil|Location2.X=3826.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-5(3835mil,3108.228mil) on Bottom Layer And Track (3714.724mil,3152.008mil)(4055.276mil,3152.008mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3765.595mil|Location2.X=3776.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3765.595mil|Location2.X=3776.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-6(3785mil,3108.228mil) on Bottom Layer And Track (3714.724mil,3152.008mil)(4055.276mil,3152.008mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3715.595mil|Location2.X=3726.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3715.595mil|Location2.X=3726.845mil|Location1.Y=3137.534mil|Location2.Y=3148.784mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-7(3735mil,3108.228mil) on Bottom Layer And Track (3714.724mil,3152.008mil)(4055.276mil,3152.008mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3743.155mil|Location2.X=3754.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3743.155mil|Location2.X=3754.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-8(3735mil,3321.772mil) on Bottom Layer And Track (3714.724mil,3277.992mil)(4055.276mil,3277.992mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3793.155mil|Location2.X=3804.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3793.155mil|Location2.X=3804.405mil|Location1.Y=3281.215mil|Location2.Y=3292.465mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.823mil &lt; 10mil) Between Pad IC1-9(3785mil,3321.772mil) on Bottom Layer And Track (3714.724mil,3277.992mil)(4055.276mil,3277.992mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.823mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDJ3Q54QYU01ONGFE1U4ESITXH1PIJWJF4ING20GP0UY50L0HS5XIF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3541.5mil|Location2.X=3575.973mil|Location1.Y=2886.5mil|Location2.Y=2938.65mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3541.5mil|Location2.X=3575.973mil|Location1.Y=2886.5mil|Location2.Y=2938.65mil|Absolute=True">Net Antennae: Arc (3555mil,2860mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3592.579mil|Location2.X=3632.494mil|Location1.Y=3184mil|Location2.Y=3245.286mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3592.579mil|Location2.X=3632.494mil|Location1.Y=3184mil|Location2.Y=3245.286mil|Absolute=True">Net Antennae: Arc (3608.579mil,3300mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4139mil|Location2.X=4168.031mil|Location1.Y=3289mil|Location2.Y=3332.175mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4139mil|Location2.X=4168.031mil|Location1.Y=3289mil|Location2.Y=3332.175mil|Absolute=True">Net Antennae: Arc (4060mil,3300mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144mil|Location2.X=4173.031mil|Location1.Y=3189mil|Location2.Y=3232.175mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144mil|Location2.X=4173.031mil|Location1.Y=3189mil|Location2.Y=3232.175mil|Absolute=True">Net Antennae: Arc (4155mil,3290mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4153.882mil|Location2.X=4193.798mil|Location1.Y=3084mil|Location2.Y=3145.286mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4153.882mil|Location2.X=4193.798mil|Location1.Y=3084mil|Location2.Y=3145.286mil|Absolute=True">Net Antennae: Arc (4169.882mil,3000mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3526.5mil|Location2.X=3560.973mil|Location1.Y=2986.5mil|Location2.Y=3038.65mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3526.5mil|Location2.X=3560.973mil|Location1.Y=2986.5mil|Location2.Y=3038.65mil|Absolute=True">Net Antennae: Track (3540mil,3000mil)(3605mil,3000mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3584mil|Location2.X=3618.473mil|Location1.Y=2526.5mil|Location2.Y=2578.65mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3584mil|Location2.X=3618.473mil|Location1.Y=2526.5mil|Location2.Y=2578.65mil|Absolute=True">Net Antennae: Track (3597.5mil,2540mil)(3740mil,2540mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3614mil|Location2.X=3643.031mil|Location1.Y=3294mil|Location2.Y=3337.175mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\newbie\altium-git\Groot-flasher\PCB\Groot\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3614mil|Location2.X=3643.031mil|Location1.Y=3294mil|Location2.Y=3337.175mil|Absolute=True">Net Antennae: Track (3625mil,3305mil)(3625mil,3330mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
